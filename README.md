@@ -5,7 +5,7 @@
 - **Responsive Frontend**: Adjusts UI according to screen size.
 - **Clickable News Articles**: Click on the Articles to read the original article.
 - **Django Backend**: Handles all backend operations for news updates.
-- **Server Side Events**: Updates clients feed as and when it refreshes feed on server.
+- **Server Sent Events**: Updates clients feed as and when it refreshes feed on server.
 - **CORS Support**: Allows cross-origin requests from the frontend application.
 - **API Only**: Purely a backend application that serves data to a frontend, without any direct views or templates.
 
