@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-zsr^valtchpl%qjsp1h5)*8mhyop%1@i8^fge00=cwy9b5ekx0"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -76,7 +80,7 @@ ASGI_APPLICATION = "automation_backend.asgi.application"
 # WSGI_APPLICATION = "automation_backend.wsgi.application"
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
+    os.getenv("FRONTEND_URL")
 ]
 
 # Database
