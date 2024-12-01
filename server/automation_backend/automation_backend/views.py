@@ -36,7 +36,7 @@ async def fetch_feed():
 def get_last_updated_time():
     # Fetch Last updated time value to save only the latest entries to db (and link shortening)
     last_updated = cache.get("last_updated")
-    print("Trying to retreive from cache ", last_updated)
+    print("Trying to retreive last updated time from cache ", last_updated)
 
     if not last_updated:
         # Fall Back for last updated is issues with cache
@@ -55,10 +55,13 @@ async def shorten_url(url):
         # RSS Feed URL
         tiny_url_api = os.getenv("TINY_URL")
         encoded_url = quote(url)
+
+        # Try to shorten the URL and fall back to original if any error occurs
         try:
             response = await client.get(tiny_url_api + "=" + encoded_url)
             return response.text
         except:
+            print("Error occured while shortening url")
             return url
 
 async def compute_feed():
@@ -73,7 +76,8 @@ async def compute_feed():
     for entry in feed.entries:
         published = entry.published
         published_datetime = datetime.strptime(published, "%a, %d %b %Y %H:%M:%S %z") 
-
+        
+        # Update only if published after the last update
         if(published_datetime <= last_updated):
             continue
 
@@ -127,6 +131,5 @@ async def refresh_feed(request):
     response = StreamingHttpResponse(event_stream(), content_type='text/event-stream')
     response['Cache-Control'] = 'no-cache'
     response['Connection'] = 'keep-alive'
-    response['Access-Control-Allow-Origin'] = '*'  # Replace '*' with specific origins in production
+    response['Access-Control-Allow-Origin'] = '*' 
     return response
-
