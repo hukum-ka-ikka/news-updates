@@ -3,6 +3,7 @@
 - **React + Vite Frontend**: Handles all frontend operations for news updates.
 - **Component based Architecture**: Component based frontend architecture for readability and reusability.
 - **Responsive Frontend**: Adjusts UI according to screen size.
+- **Clickable News Articles**: Click on the Articles to read the original article.
 - **Django Backend**: Handles all backend operations for news updates.
 - **Server Side Events**: Updates clients feed as and when it refreshes feed on server.
 - **CORS Support**: Allows cross-origin requests from the frontend application.
