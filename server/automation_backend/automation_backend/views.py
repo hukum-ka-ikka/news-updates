@@ -52,6 +52,7 @@ def get_last_updated_time():
 
 async def shorten_url(url):
     async with httpx.AsyncClient() as client:
+        print("Shortening URL for", url)
         # RSS Feed URL
         tiny_url_api = os.getenv("TINY_URL")
         encoded_url = quote(url)
@@ -75,11 +76,13 @@ async def compute_feed():
 
     for entry in feed.entries:
         published = entry.published
-        published_datetime = datetime.strptime(published, "%a, %d %b %Y %H:%M:%S %z") 
-        
+        published_datetime = datetime.strptime(published, "%a, %d %b %Y %H:%M:%S %z")    
+
         # Update only if published after the last update
         if(published_datetime <= last_updated):
             continue
+
+        print(f"The following article was published on {published_datetime} which is after the feed was last updated{last_updated}: {entry.title}")
 
         title = entry.title
         summary = entry.summary
@@ -96,9 +99,10 @@ async def compute_feed():
             shortened_link=shortened_link
         )
 
+
     latest_feed = await sync_to_async(list)(FeedModel.objects.order_by("-published")[:16])
 
-    serialized_feed = [
+    serialized_feed = [ 
         {
             "title" : entry.title,
             "summary" : entry.summary,

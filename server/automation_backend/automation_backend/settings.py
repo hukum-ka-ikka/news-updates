@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-zsr^valtchpl%qjsp1h5)*8mhyop%1@i8^fge00=cwy9b5ekx0"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["news-updates-tkvu.onrender.com"]
 
@@ -80,7 +80,7 @@ ASGI_APPLICATION = "automation_backend.asgi.application"
 # WSGI_APPLICATION = "automation_backend.wsgi.application"
 
 CORS_ALLOWED_ORIGINS = [
-    os.getenv("FRONTEND_URL")
+    os.getenv("FRONTEND_URL"),
 ]
 
 # Database
