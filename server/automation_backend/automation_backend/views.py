@@ -46,7 +46,7 @@ def get_last_updated_time():
             last_updated = latest_entry.published
         else:
             print("Retreived from last fall back")
-            last_updated = datetime.now(ZoneInfo("Asia/Kolkata")) - timedelta(seconds=601) # subtracting 10 minutes 1 second from current IST
+            last_updated = datetime.now(ZoneInfo("Asia/Kolkata")) - timedelta(seconds=61) # subtracting 1 minutes 1 second from current IST
 
     return last_updated
 
@@ -111,7 +111,7 @@ async def compute_feed():
         for entry in latest_feed
     ] 
 
-    cache.set("last_updated", datetime.now(ZoneInfo("Asia/Kolkata")), timeout=601)
+    cache.set("last_updated", datetime.now(ZoneInfo("Asia/Kolkata")), timeout=61)
     
     return serialized_feed
 
@@ -131,5 +131,4 @@ async def refresh_feed(request):
     response = StreamingHttpResponse(event_stream(), content_type='text/event-stream')
     response['Cache-Control'] = 'no-cache'
     response['Connection'] = 'keep-alive'
-    response['Access-Control-Allow-Origin'] = '*' 
     return response
